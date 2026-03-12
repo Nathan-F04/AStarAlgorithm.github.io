@@ -14,17 +14,35 @@ The final functions I created before tackling the main logic were a function to 
 
 Euclidean distance is calulated via the following formula: h = sqrt((current x - end goal x)^2 - (current y - end goal y)^2). I touched on distances in the ealier section on the algorithm itself, but to summarise, it is a means of estimating the distance to the end from the current tile. It is optimistic in nature as the calculation is for the displacement and doesn't take into account that an obstacle may divert the path. Using the Euclidean distance, the path taken can be in all directions i.e. not North South East and West but also North-West, North-East, South-East and South-West. A more simple means of calculating distance is Manahttan in which the algorithm is limited to four directions [2]. 
 
-Fig 1 A hand inserted grid
-Fig 2 random grid
-Fig 3 isblocked
-Fig 4 grid displayed by symbols
-Fig 5 Euclidean distance
+<sub> Fig 1 A hand inserted grid </sub>
 
-I referenced a video on the A* algorithm that was recommended by our lecturer to build the main algorithm. The code referenced was written in C# (see Fig 6) and therefore I converted it into C++ by understanding what each logical component did on the video, and what methods were required in order to achieve it that weren't shown.
+<img width="478" height="174" alt="image" src="https://github.com/user-attachments/assets/a94f905f-c1de-46d3-aa9e-f8a9483220e9" />
 
-Fig 6 screenshot of referenced video
+<sub> Fig 2 Method to generate a random grid </sub>
 
+<img width="369" height="103" alt="image" src="https://github.com/user-attachments/assets/a6f08f8e-d1f9-4cd9-bbe2-360752dbfd26" />
 
+<sub> Fig 3 isblocked </sub>
+
+<img width="332" height="216" alt="image" src="https://github.com/user-attachments/assets/10c4edc3-7ed3-4b03-b3e3-fdf086c3ab7d" />
+
+<sub> Fig 4 grid displayed by symbols </sub>
+
+<img width="755" height="82" alt="image" src="https://github.com/user-attachments/assets/035eb7ba-3b1f-4277-a0d9-29e98f65fe29" />
+
+<sub> Fig 5 Euclidean distance </sub>
+
+I referenced a video on the A* algorithm that was recommended by our lecturer to build the main algorithm. The code referenced was written in C# (see Fig 6) and therefore I converted it into C++ by understanding what each logical component did on the video, and what methods were required in order to achieve it that weren't shown. I began by breaking the reference into subtasks. Starting with the arguments passed, the start and end positions are passed. Two lists are then defined, toSearch known in A* generally as open and closed lists are called toSearch and processed. They hold the tiles or nodes that are chosen to search already (processed) or may be searched (in the toSearch list). A while loop encapsulates the entire algorithm which runs while the open list still has nodes to cycle through. The algorithm would return the path if successfull, but if not, it would need to let the user know that a path was not found. A current variable is set to the top of the list and a for loop checks for the most optimal tile to search next, comparing the total distances between the tiles and the distance to the end. The reason there are two checks within the if is the fact that DOUBLE CHECK!!!!!!!. If either case is true, the current tile is set to the more optimal one and added to the processed list since it has then been chosen to search. It is removed from toSearch and the neighbours of this new tile are selected. A new foreach loop is used to check all neighbours of the tile that are not obstructed, out of bounds or already processed. If a tile meets none of the critera above a check is perfomed to see if the tile is already in the toSearch list. The new g cost is calculated given the total distance from the start thus far and the added distance of moving to this new tile. Finally two if statements finish the logic. Initially, the boolean checking if the tile is already in the toSearch list is checked to be false or the G value is compared with the tiles current G. The g cost may need to be revaluated at some point. For example, the path is traced and due to an obstacle the g cost was not what is should have been initially. DOUBLE CHECK!!!! The distance from the start is set and the connection to the neighbour tile to the current tile is created. This connection is used to trace the path if a viable path is found at the end. The H cost is set here too, letting the tile know the distance it is from the end.
+
+This was hard to wrap my head around logically at the start and I found it best to write in pseudocode (see Fig 7) with comments regarding the final structure I expected. There were a few changes I knew I would make to format the code for C++ but also work with my style and thought process.
+
+<img width="627" height="559" alt="image" src="https://github.com/user-attachments/assets/3e3ed065-1ff3-45b8-ae65-4ffaea624933" />
+
+<sub> Fig 6 screenshot of referenced video </sub>
+
+<img width="937" height="567" alt="image" src="https://github.com/user-attachments/assets/f90f9414-7f6b-464d-ae2b-c6a7a07a8e28" />
+
+<sub> Fig 7 C++ pseudocode </sub>
 
 The screenshot above aided me to finally push my understanding of the algorithm from hazy to a deep understanding. 
 
