@@ -1,2 +1,63 @@
-# AStarAlgorithm.github.io
+## **AStarAlgorithm**
 A report of the A* algorithm project created for a C++ module
+Welcome to my C++ A* search algorithm project. My name is Nathan Ferry, and here I catalog the timeline of the cumulative work that led to my final code.
+
+## **Core Content**
+
+### **What is the A* Search Algorithm?**
+Before I delve into the evolution of the code, I should explain what the project goal is. The A* search algorithm is an algorithm widely used to find the optimal path through obstacles. It has three main attributes, the g cost, h cost and f cost. In a co-ordinate system you may want to navigate in a straight line with no obstacles, or the farthest distance on your plane with many tiles you are unable to travel in. The algorithm uses the g cost or distance between the starting location and the current tile, the h cost or the distance from the current tile to the goal tile and the f cost which is the g and h costs combined. The optimal path is the lowest f cost as you are the shortest distance from the start or end at any given point. Given an example where you are on a tile and want to go straight three tiles without any obstacles the g cost would begin at 0 and the h cost 3 for an f cost of 3. The most optimal path will always be 3 as when you take a step forward, not only does g increase by 1, but h decreases by 1 leaving f to be a constant. These values are still estimates at the end of the day, as these costs to move are calculated using differing methods depending on whether you can move in just four directions, or also diagonal. [1] 
+
+### **Code Evolution**
+Upon staring the project, my goal was to create small but meaningful helper functions that would be useful in the final product. I knew I would have to generate a random grid for example, so I found no reason to program with a grid  that I created by hand (see Fig 1 as an example) if I was going to eventually rewrite it. This meant slower progress in the short term but less time wasted in the long run. The first week of development saw me create functions to generate a random grid (see Fig 2) and a means of checking if a given co-ordinate is blocked (see Fig 3) or is valid. The grid is generated using a 1 or 0 in each tile to signify a blocked or unblocked tile respectively. This grid is stored in a 2d vector that is a private member function of the StarAlgorithm class. The logic for the blocked and valid methods are more or less the same, both returning a boolean based on an if statement for the passed co-ordinate. Each co-ordinate was decided to be a pair that would be passed to functions since it was a container that made the most sense to easily store co-ordinates. The validity check is in case a co-ordinate is passed that is outside of the given grid size. This was used later for logic that would check the neighbours of a tile when moving. 
+
+The final functions I created before tackling the main logic were a function to display the grid, a means of creating a start and end co-ordinate and calculating the distance between the current co-ordinate and the end. The grid display method was straightforward, only printing the grid by iterating over the 2d vector and using a switch case to print symbols instead of numbers as I believed the grid would look cleaner this way (see Fig 4). The random number generation for choosing a start and end co-ordinate were eerily similar to the code for generating a random grid. The only difference being that the co-ordinated were in the range of the rows in the grid -1 and columns -1 (given that the co-ordinate system started at 0,0 and hence an 8x8 grid wouldn't have a co-ordinate of 8,8 for example). Once the co-ordinates were generated, the start and end co-ordinate (which were pairs and private members of the class) were set to the genrated values. The 
+
+Euclidean distance is calulated via the following formula: h = sqrt((current x - end goal x)^2 - (current y - end goal y)^2). I touched on distances in the ealier section on the algorithm itself, but to summarise, it is a means of estimating the distance to the end from the current tile. It is optimistic in nature as the calculation is for the displacement and doesn't take into account that an obstacle may divert the path. Using the Euclidean distance, the path taken can be in all directions i.e. not North South East and West but also North-West, North-East, South-East and South-West. A more simple means of calculating distance is Manahttan in which the algorithm is limited to four directions [2]. 
+
+Fig 1 A hand inserted grid
+Fig 2 random grid
+Fig 3 isblocked
+Fig 4 grid displayed by symbols
+Fig 5 Euclidean distance
+
+I referenced a video on the A* algorithm that was recommended by our lecturer to build the main algorithm. The code referenced was written in C# (see Fig 6) and therefore I converted it into C++ by understanding what each logical component did on the video, and what methods were required in order to achieve it that weren't shown.
+
+Fig 6 screenshot of referenced video
+
+
+
+The screenshot above aided me to finally push my understanding of the algorithm from hazy to a deep understanding. 
+
+### **The Final Product**
+Reference header for final code
+
+Dive into the main algorithm in its final phase referencing other methods by proxy
+
+### **Design Decisions**
+Why a namespace
+
+Why the struct
+
+Why testing like this
+
+Why a map
+
+### **Potential Improvements**
+How a heap could improve the code
+
+How unit testing & Exceptions could be added
+
+Truer randomness, explain the limitations of the current one now.
+
+## **Project planning**
+I used OneNote for project planning throughout the development of this project. Each day I worked on this project, I noted tasks that were completed. I made certain all sources (including the date they were accessed) were transcibed in a section as well as the relevant section of code they pertained to, or knowledge I gained from them. This was a useful means of lightening the workload for this report, since it allowed me to check what information I gained from where, as well as how the code was developed over time. This made citations a quick and easy task for this report thanks to my ealier forethought. Within the log I kept screenshots of my algorithm's evolution over time enabling the history of the project to be shown in the core content section. The log made it simpler to track the tasks yet to complete, with a subsection dedicated to features I wanted to add. The section meant that jotting down ideas was simple as well as easy to locate once the current feature in development was completed. Within programming labs, I kept my lecturer up to date on the current status on the project and voiced new ideas and optimisations in the log and backlog of tasks. I would ask questions pertaining to next steps if all my features were complete and my code was reviewed several times, leading to a polished final product with renewed guidence each week and goals to work towards by the next session. 
+
+## **Reflective element**
+Biggest problems would be the linking of the structs to trace the path
+What I would do next time being the heap and unit testing and maybe making the grid a separate class
+
+### **References**
+[1] Tarodev, “Pathfinding - Understanding A* (A star),” YouTube. Nov. 16, 2021. [Online]. Available: https://www.youtube.com/watch?v=i0x5fj4PqP4  (accessed Feb. 10, 2026).
+[2] GeeksforGeeks, “A* Search Algorithm,” GeeksforGeeks, Jun. 16, 2016. https://www.geeksforgeeks.org/dsa/a-search-algorithm/  (accessed Feb. 07, 2026).  
+
+
