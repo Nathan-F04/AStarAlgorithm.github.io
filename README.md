@@ -4,10 +4,10 @@ Welcome to my C++ A* search algorithm project. My name is Nathan Ferry, and here
 
 ## **Core Content**
 
-### **What is the A* Search Algorithm?**
+### **What is the A* Search Algorithm?*
 Before I delve into the evolution of the code, I should explain what the project goal is. The A* search algorithm is an algorithm widely used to find the optimal path through obstacles. It has three main attributes, the g cost, h cost and f cost. In a co-ordinate system you may want to navigate in a straight line with no obstacles, or the farthest distance on your plane with many tiles you are unable to travel in. The algorithm uses the g cost or distance between the starting location and the current tile, the h cost or the distance from the current tile to the goal tile and the f cost which is the g and h costs combined. The optimal path is the lowest f cost as you are the shortest distance from the start or end at any given point. Given an example where you are on a tile and want to go straight three tiles without any obstacles the g cost would begin at 0 and the h cost 3 for an f cost of 3. The most optimal path will always be 3 as when you take a step forward, not only does g increase by 1, but h decreases by 1 leaving f to be a constant. These values are still estimates at the end of the day, as these costs to move are calculated using differing methods depending on whether you can move in just four directions, or also diagonal. [1] 
 
-### **Code Evolution**
+### **Creating the Algorithm Logic**
 Upon staring the project, my goal was to create small but meaningful helper functions that would be useful in the final product. I knew I would have to generate a random grid for example, so I found no reason to program with a grid  that I created by hand (see Fig 1 as an example) if I was going to eventually rewrite it. This meant slower progress in the short term but less time wasted in the long run. The first week of development saw me create functions to generate a random grid (see Fig 2) and a means of checking if a given co-ordinate is blocked (see Fig 3) or is valid. The grid is generated using a 1 or 0 in each tile to signify a blocked or unblocked tile respectively. This grid is stored in a 2d vector that is a private member function of the StarAlgorithm class. The logic for the blocked and valid methods are more or less the same, both returning a boolean based on an if statement for the passed co-ordinate. Each co-ordinate was decided to be a pair that would be passed to functions since it was a container that made the most sense to easily store co-ordinates. The validity check is in case a co-ordinate is passed that is outside of the given grid size. This was used later for logic that would check the neighbours of a tile when moving. 
 
 The final functions I created before tackling the main logic were a function to display the grid, a means of creating a start and end co-ordinate and calculating the distance between the current co-ordinate and the end. The grid display method was straightforward, only printing the grid by iterating over the 2d vector and using a switch case to print symbols instead of numbers as I believed the grid would look cleaner this way (see Fig 4). The random number generation for choosing a start and end co-ordinate were eerily similar to the code for generating a random grid. The only difference being that the co-ordinated were in the range of the rows in the grid -1 and columns -1 (given that the co-ordinate system started at 0,0 and hence an 8x8 grid wouldn't have a co-ordinate of 8,8 for example). Once the co-ordinates were generated, the start and end co-ordinate (which were pairs and private members of the class) were set to the genrated values. The 
@@ -60,16 +60,51 @@ The main logic was complete at this point, but as previously mentioned, there we
 
 <sub> Fig 10 Locating a tile's neighbours </sub>
 
-The final piece of the puzzle was a means of tracing the found path via a connection method. This was the most difficult method to wrap my head around. Initially, I thought I needed to create a struct within a struct which would have definition issues. I realised I would only require the co-ordinates for the path but fell into a the wrong path as I initally thought that with only the co-ordinates stored, if the algorithm took a wrong turn and recorrected, then the list of co-ordinates would be wrong. This was of course incorrect but I prompted as a means of finishing this section of the codebase, which set in motion a chain of debugging that confused me even more. Initially, the ai concluded that pointers were required to link the nodes and an additional member of a pointer would be used to connect each node. I edited my functions to accept a pointer to a struct and accessed the members using "->" instead of "." to access members. Once this had concluded the issues began to crop up. Due to erasing from the closed list, the pointers were pointing to garbage. Other similar errors appeared with this method and inevitably, I asked the ai if there was a way to simplify the system. This was when the cameFrom map was used in which the keys were the co-ordinates of a node and the node connecting it. This method was much simpler and allowed me to use the inital code.
+Interestingly, once the above had been complete I realised a key issue. There wasn't a means of returning the path the algorithm found. I referenced the video used for the inital pseudocode and found a final section revealing the method for tracing a path in the algorithm, or rather where the methods to trace said path were called (see Fig 11). The code to loop through the path was not the issue, the final piece of the puzzle was a means of tracing the found path via a connection method. This was the most difficult method to wrap my head around. 
 
 <img width="510" height="280" alt="image" src="https://github.com/user-attachments/assets/172a12ce-84e7-460c-849c-645faa278e33" />
 
-<sub> Fig X The missing logic </sub>
+<sub> Fig 11 The missing logic </sub>
+
+Initially when pondering how to create a connection method, I thought I needed to create a struct within a struct. This would store the information about the previous tile but the struct would have definition issues. I realised I would only require the co-ordinates for the path but fell into a the wrong path as I initally thought that with only the co-ordinates stored, if the algorithm took a wrong turn and recorrected, the list of co-ordinates would be wrong. This was of course incorrect but I prompted Claude as a means of finishing this section of the codebase, which set in motion a chain of debugging that confused me even more. Initially, the ai concluded that pointers were required to link the nodes and an additional member of a pointer would be used to connect each node. I edited my functions to accept a pointer to a struct and accessed the members using "->" instead of "." (see Fig 12). Note that smart pointers weren't even used which would have been better practice. Once this had concluded, issues began to crop up. Due to erasing from the closed list, the pointers were shifting in memory and pointing to garbage. Other similar errors appeared with this method and inevitably, I asked the ai if there was a way to simplify the system. This was when the cameFrom map was used in which the keys were the co-ordinates of a node and the node connecting it (see Fig 13). This method was much simpler and allowed me to use the inital code without the complexity of pointers. 
+
+<img width="576" height="282" alt="image" src="https://github.com/user-attachments/assets/2e05f2ee-322c-4aa3-ab18-1ac65499509c" />
+
+<sub> Fig 12 An example of pointer logic complicating the code </sub>
+
+<img width="510" height="23" alt="image" src="https://github.com/user-attachments/assets/a3a3eecb-4732-438b-bdbd-690c44fc5daf" />
+
+<sub> Fig 13 The map which simplified my code </sub>
+
+The tracePath function passed the path found (or empty vector if no path was found) to the findPath method (see Fig 14) which called the tracePath method and used an if statement to check that a returned list wasn't empty. If it was, the screen would display that no path was found. If the path was found, a for loop was used to set the co-ordinates to two so that the switch case in the for loop would display them using "*" in the displayGrid method. The method consists of nested for loops with a switch case. Each co-ordinate is printed based on numbers. The start co-ordinate is "SC" and the end goal or end co-ordinate is "EC". I edited this code to be the only section that would print ASCII to the screen using color (see Fig 15 & 16). 
+
+<img width="593" height="288" alt="image" src="https://github.com/user-attachments/assets/399fe64a-0018-4a5c-bff9-b8d330fce744" />
+
+<sub> Fig 14 findPath which displays the found path </sub>
+
+<img width="498" height="511" alt="image" src="https://github.com/user-attachments/assets/96bf0a82-98c5-437f-beaf-79fca8495553" />
+
+<sub> Fig 15 An example output of an unsolved grid </sub>
+
+<img width="490" height="468" alt="image" src="https://github.com/user-attachments/assets/c6c02b9d-a133-47f4-9509-a7eeb2dafc3c" />
+
+<sub> Fig 16 An example output of a solved grid </sub>
 
 ### ** Finding the Final Product**
-Reference header for final code
+From this point on, testing the algorithm & adhering to best practices was of the utmost importance. Minute edits to clean the code were made such as using "_" at the end of variables to adhere to best practice, making variables easily identifiable. 
 
-Dive into the main algorithm in its final phase referencing other methods by proxy
+
+<img width="595" height="389" alt="image" src="https://github.com/user-attachments/assets/200509cb-d0ed-4053-8640-6d6806c48e26" />
+
+<sub> Fig 17 shows extra brackets </sub>
+
+<img width="582" height="533" alt="image" src="https://github.com/user-attachments/assets/06724193-b014-4296-996a-87e38f152073" />
+
+<sub> Fig 18 A busy class in the header </sub>
+
+<img width="548" height="527" alt="image" src="https://github.com/user-attachments/assets/eec75fb9-8a3e-4759-b95a-f5756128277e" />
+
+<sub> Fig 19 Cleaner header with namespace implementation </sub>
 
 ### **Design Decisions**
 Why a namespace
