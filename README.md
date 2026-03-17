@@ -91,20 +91,37 @@ The tracePath function passed the path found (or empty vector if no path was fou
 <sub> Fig 16 An example output of a solved grid </sub>
 
 ### ** Finding the Final Product**
-From this point on, testing the algorithm & adhering to best practices was of the utmost importance. Minute edits to clean the code were made such as using "_" at the end of variables to adhere to best practice, making variables easily identifiable. 
+From this point on, testing the algorithm & adhering to best practices was of the utmost importance. Minute edits to clean the code were made such as using "_" at the end of variables, making them easily identifiable. I received notes during a code review during the development and had a few tweaks to make. Most importantly, I needed to split the tracePath function due to its bloated nature (see Fig 17). At this point, the focus had been to try and get a working algorithm but I was reminded that a method should focus on one task alone. This lead to the evolution in creating a modular series of functions that are called within the shortened tracePath algorithm. 
 
+<img width="393" height="598" alt="image" src="https://github.com/user-attachments/assets/a98f891a-a766-4be2-b732-3f1e4f38a410" />
 
-<img width="595" height="389" alt="image" src="https://github.com/user-attachments/assets/200509cb-d0ed-4053-8640-6d6806c48e26" />
+<sub> Fig 17 The bloated algorithm is showcased just in the number of brackets at the bottom </sub>
 
-<sub> Fig 17 shows extra brackets </sub>
+The tracePath function shortened immensely, calling a series of new methods to outsource the logic (see Fig 18). getBestNode replaces the for loop to sort the openList to search for the best node to add to the closedList (see Fig 19). PromoteToClosedList simply removes the chosen node from the openList after adding it to the closedList. The check to tell if the destination is executed next, whereby if passed the new isDestination method is called (see Fig 20). This method iterates through the path as the logic did before, retracing the path, pushing the co-ordinates to the path vector with two slight tweaks. The cameFrom map is used to trace the next co-ordinate at the bottom of the while loop and reverse is used to flip the co-ordinate order for printing the start to destination rather than vice versa. If the destination is not the current co-ordinate, the processNeighbours method is called (see Fig 21). The function is used to iterate through the selected tile's neighbours, calling the find_neighbours method before checking if the neighbour is in the closedList already and finding if the node is in the openList. The openList check is skipped in the event that the node is already in the closedList. The findInOpenList method returns a boolean and totalG is calculated via the currenNode g value plus the distance to a tile in this case 1. A final check is present as before, but updateNeighbour is a new function which sets the neighbour g value equal to the totalG calculated and sets the co-ordinates of the tile that neighbour is set to, to be the key for the currentNode. This means that the co-ordinate of (1, 1) may have the neighbour of (1,2) and this logic is merely stating that the key of (1,2) has the node of (1,1) so that when the path is traced it can be ascertain the next co-ordinate and work backwards. If the node was not in the openList then the euclidean value for the h attribute and the f values are set for the node, otherwise to avoid pointing to garbage or the default, the node is set to have the same g and f values as the node it matched with ie (1,1) to (1,1). H is not copied as it never changes or updates, the euclidean distance is fixed.
+
+<img width="501" height="218" alt="image" src="https://github.com/user-attachments/assets/69c94acd-2d75-4a70-87c2-fbf72fa829f6" />
+
+<sub> Fig 18 The new algorithm method </sub>
+
+<img width="1144" height="624" alt="image" src="https://github.com/user-attachments/assets/17daa6e7-5c84-4299-88b3-5a5a61b63ce6" />
+
+<sub> Fig 19 The new algorithm methods </sub>
+
+<img width="1363" height="188" alt="image" src="https://github.com/user-attachments/assets/83e2febe-328e-40af-9673-904f5f6f48f9" />
+
+<sub> Fig 20 isDestination </sub>
+
+<img width="1196" height="280" alt="image" src="https://github.com/user-attachments/assets/b6325c9c-cfa6-4cb1-8b5a-afbdb3d31ede" />
+
+<sub> Fig 21 processNeighbours</sub>
 
 <img width="582" height="533" alt="image" src="https://github.com/user-attachments/assets/06724193-b014-4296-996a-87e38f152073" />
 
-<sub> Fig 18 A busy class in the header </sub>
+<sub> Fig X A busy class in the header </sub>
 
 <img width="548" height="527" alt="image" src="https://github.com/user-attachments/assets/eec75fb9-8a3e-4759-b95a-f5756128277e" />
 
-<sub> Fig 19 Cleaner header with namespace implementation </sub>
+<sub> Fig X Cleaner header with namespace implementation </sub>
 
 ### **Design Decisions**
 Why a namespace
