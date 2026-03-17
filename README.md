@@ -117,11 +117,13 @@ The tracePath function shortened immensely, calling a series of new methods to o
 
 <img width="582" height="533" alt="image" src="https://github.com/user-attachments/assets/06724193-b014-4296-996a-87e38f152073" />
 
-<sub> Fig X A busy class in the header </sub>
+Another note that required rectifying was the header file for the code. The header was hard to read due to the number of methods, variables and the struct (see Fig 22). The plan to fix this issue was to define the struct above the class definition for better readability. I employed a namespace to prevent collisions between similar struct or method names and to avoid making the struct global which would be bad practice (see Fig 23).
+
+<sub> Fig 22 A busy class in the header </sub>
 
 <img width="548" height="527" alt="image" src="https://github.com/user-attachments/assets/eec75fb9-8a3e-4759-b95a-f5756128277e" />
 
-<sub> Fig X Cleaner header with namespace implementation </sub>
+<sub> Fig 23 Cleaner header with namespace implementation </sub>
 
 ### **Design Decisions**
 Why a namespace
