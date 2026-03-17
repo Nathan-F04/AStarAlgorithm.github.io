@@ -115,15 +115,17 @@ The tracePath function shortened immensely, calling a series of new methods to o
 
 <sub> Fig 21 processNeighbours</sub>
 
-<img width="582" height="533" alt="image" src="https://github.com/user-attachments/assets/06724193-b014-4296-996a-87e38f152073" />
+Another note that required rectifying was the header file for the code. The header was hard to read due to the number of methods, variables and the struct (see Fig 22). The plan to fix this issue was to define the struct above the class definition for better readability. I employed a namespace to prevent collisions between similar struct or method names and to avoid making the struct global which would be bad practice (see Fig 23). There was also a point in which many unused members were cut from the header and .cpp file for example a variable h, the node length and the diagonal node distance. The members were also changed to include "_" as previously mentioned and the new functions to debloat the algorithm function were included. 
 
-Another note that required rectifying was the header file for the code. The header was hard to read due to the number of methods, variables and the struct (see Fig 22). The plan to fix this issue was to define the struct above the class definition for better readability. I employed a namespace to prevent collisions between similar struct or method names and to avoid making the struct global which would be bad practice (see Fig 23).
+<img width="582" height="533" alt="image" src="https://github.com/user-attachments/assets/06724193-b014-4296-996a-87e38f152073" />
 
 <sub> Fig 22 A busy class in the header </sub>
 
-<img width="548" height="527" alt="image" src="https://github.com/user-attachments/assets/eec75fb9-8a3e-4759-b95a-f5756128277e" />
+<img width="1222" height="742" alt="image" src="https://github.com/user-attachments/assets/580f2db6-e248-48a1-8fa0-55649e17293d" />
 
 <sub> Fig 23 Cleaner header with namespace implementation </sub>
+
+### **Testing the Algorithm**
 
 ### **Design Decisions**
 Why a namespace
