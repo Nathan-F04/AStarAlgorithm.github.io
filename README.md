@@ -93,6 +93,8 @@ The tracePath function passed the path found (or empty vector if no path was fou
 ### **Finding the Final Product**
 From this point on, testing the algorithm & adhering to best practices was of the utmost importance. Minute edits to clean the code were made such as using "_" at the end of variables, making them easily identifiable. I received notes during a code review during the development and had a few tweaks to make. Most importantly, I needed to split the tracePath function due to its bloated nature (see Fig 17). At this point, the focus had been to try and get a working algorithm but I was reminded that a method should focus on one task alone. This lead to the evolution in creating a modular series of functions that are called within the shortened tracePath algorithm. 
 
+Another issue that I found was the random generation was seeded and therefore the same grid and start and end points were selected for a specific grid size. This meant that there wasn't a true random (although there exists no such thing). With the addition of time(0) as an argument to the random default engine for the generation of the grid and start and end co-ordinates, the grid had different blocked and unblocked tiles for the same grid size and different starts and ends. 
+
 <img width="393" height="598" alt="image" src="https://github.com/user-attachments/assets/a98f891a-a766-4be2-b732-3f1e4f38a410" />
 
 <sub> Fig 17 The bloated algorithm is showcased just in the number of brackets at the bottom </sub>
@@ -127,40 +129,36 @@ Another note that required rectifying was the header file for the code. The head
 
 ### **Testing the Algorithm**
 
-To close out the project, testing was added in the form of a new .h and .cpp file (see Fig 24 & 25 respectfully). Generally, common or best practice would be to implement unit testing to confirm the logic of each function and their response to invalid arguments or data. In essence you want to check that two things are happening. 1) The function works as intended and 2) The function fails gracefully as intended. Due to the nature of the time allocated for this project, the scope was not to implement full unit testing, but rather a system test where the overall algorithm is tested in place of individual functions. This was done due to the fact that the Visual Studio unit testing framework has a steep learning curve that would cost precious time over the course of the project. 
+To close out the project, testing was added in the form of a new .h and .cpp file (see Fig 24, 25 & 26 respectfully). Generally, common or best practice would be to implement unit testing to confirm the logic of each function and their response to invalid arguments or data. In essence you want to check that two things are happening. 1) The function works as intended and 2) The function fails gracefully as intended. The header consists of the function signature of RunTests and the library to access the aStar class. The test source file consist of the function body and the libraries for the algorithm and the test header. The RunTests function creates an object from the StarAlgorithm class and then calls three functions from the class. The first is fillGrid which generates the grid and the start and end co-ordinates. The displayGrid function is called to display the initial grid with the start and end co-ordinate before the algorithm finds a path. Finally, the findPath function is the most catalogued one here, where the algorithm is used before the path is traced and the new grid displayed with the path chosen (given there is a valid path). The main file consists of a try catch which runs the test function. 
 
-IMG!!!
+<img width="355" height="203" alt="image" src="https://github.com/user-attachments/assets/87c7265d-f1c1-41d0-b20a-894843f3d5ec" />
 
 <sub> Fig 24 The header file for testing the system </sub>
 
-IMG!!!
+<img width="366" height="242" alt="image" src="https://github.com/user-attachments/assets/65a09c31-a6bf-4f04-9eb2-91d155432890" />
 
 <sub> Fig 25 The source file for testing the system</sub>
 
+<img width="480" height="295" alt="image" src="https://github.com/user-attachments/assets/1c18af3d-7fd7-4e1f-a4d9-bb61e04b2ae0" />
 
+<sub> Fig 25 The main file</sub>
 
 ### **Design Decisions**
-Why a namespace
 
-Why the struct
+There are certain design decisions that were used that are worth clarifying. One such decision is the struct being in the format it is in. I felt it was not only necessary to store the revelvant attributes for the algorithm such as the g, h and f values per tile but also made the most sense to me personally. With the struct formatted this way, checks comparing the most accurate tile was easier to make. Due to the nature of comparing nodes, the overloading of an operator was also implemented. There are reasons why you would avoid using the namespace implemented in the header file but as previously mentioned, it was decided that the definition of the node struct outside of the class was better for readability. The namespace avoids making the struct gloabal while improving the readability by defining the struct outside of the class.
 
-Why testing like this
-
-Why a map
+Testing in this project is also limited in implementation. Due to the nature of the time allocated for this project, the scope was not to facilitate full unit testing, but rather a system test where the overall algorithm is tested in place of individual functions. This was done due to the fact that the Visual Studio unit testing framework has a steep learning curve that would cost precious time over the course of the project.  
 
 ### **Potential Improvements**
-How a heap could improve the code
 
-How unit testing & Exceptions could be added
-
-Truer randomness, explain the limitations of the current one now.
+There are a number of aspects of the code in its current state that are not optimal. The most inefficient part of the code at this point is the section that calculates the best current node at the beginning of the algorithm. This makes INSERT NOTATION HERE. With a heap, the code now INSERT which is X more efficient. The heap works via INSERT. Another major overhaul that I would implement if I continued on this project would be using the Visual Studio framework. I would implement full unit testing for the member functions of the class in terms of graceful fails and successful runs. A final improvement would be to uncouple the grid generation from the algorithm class. This would involve using the namespace set up in a separate class for the functions using the grid and removing the functions to generate the grid and start and end co-ordinates.
 
 ## **Project planning**
 I used OneNote for project planning throughout the development of this project. Each day I worked on this project, I noted tasks that were completed. I made certain all sources (including the date they were accessed) were transcibed in a section as well as the relevant section of code they pertained to, or knowledge I gained from them. This was a useful means of lightening the workload for this report, since it allowed me to check what information I gained from where, as well as how the code was developed over time. This made citations a quick and easy task for this report thanks to my ealier forethought. Within the log I kept screenshots of my algorithm's evolution over time enabling the history of the project to be shown in the core content section. The log made it simpler to track the tasks yet to complete, with a subsection dedicated to features I wanted to add. The section meant that jotting down ideas was simple as well as easy to locate once the current feature in development was completed. Within programming labs, I kept my lecturer up to date on the current status on the project and voiced new ideas and optimisations in the log and backlog of tasks. I would ask questions pertaining to next steps if all my features were complete and my code was reviewed several times, leading to a polished final product with renewed guidence each week and goals to work towards by the next session. 
 
 ## **Reflective element**
 Biggest problems would be the linking of the structs to trace the path
-What I would do next time being the heap and unit testing and maybe making the grid a separate class
+Of course, it goes without saying that I would focus on the number of improvements if given the chance such as unit testing, adding a heap and decoupling the algorithim class from the grid functions to make two classes. 
 
 ### **References**
 [1] Tarodev, “Pathfinding - Understanding A* (A star),” YouTube. Nov. 16, 2021. [Online]. Available: https://www.youtube.com/watch?v=i0x5fj4PqP4  (accessed Feb. 10, 2026).
