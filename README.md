@@ -128,7 +128,6 @@ Another note that required rectifying was the header file for the code. The head
 <sub> Fig 23 Cleaner header with namespace implementation </sub>
 
 ### **Testing the Algorithm**
-
 To close out the project, testing was added in the form of a new .h and .cpp file (see Fig 24, 25 & 26 respectfully). Generally, common or best practice would be to implement unit testing to confirm the logic of each function and their response to invalid arguments or data. In essence you want to check that two things are happening. 1) The function works as intended and 2) The function fails gracefully as intended. The header consists of the function signature of RunTests and the library to access the aStar class. The test source file consist of the function body and the libraries for the algorithm and the test header. The RunTests function creates an object from the StarAlgorithm class and then calls three functions from the class. The first is fillGrid which generates the grid and the start and end co-ordinates. The displayGrid function is called to display the initial grid with the start and end co-ordinate before the algorithm finds a path. Finally, the findPath function is the most catalogued one here, where the algorithm is used before the path is traced and the new grid displayed with the path chosen (given there is a valid path). The main file consists of a try catch which runs the test function. 
 
 <img width="355" height="203" alt="image" src="https://github.com/user-attachments/assets/87c7265d-f1c1-41d0-b20a-894843f3d5ec" />
@@ -144,24 +143,50 @@ To close out the project, testing was added in the form of a new .h and .cpp fil
 <sub> Fig 25 The main file</sub>
 
 ### **Design Decisions**
-
 There are certain design decisions that were used that are worth clarifying. One such decision is the struct being in the format it is in. I felt it was not only necessary to store the revelvant attributes for the algorithm such as the g, h and f values per tile but also made the most sense to me personally. With the struct formatted this way, checks comparing the most accurate tile was easier to make. Due to the nature of comparing nodes, the overloading of an operator was also implemented. There are reasons why you would avoid using the namespace implemented in the header file but as previously mentioned, it was decided that the definition of the node struct outside of the class was better for readability. The namespace avoids making the struct gloabal while improving the readability by defining the struct outside of the class.
 
 Testing in this project is also limited in implementation. Due to the nature of the time allocated for this project, the scope was not to facilitate full unit testing, but rather a system test where the overall algorithm is tested in place of individual functions. This was done due to the fact that the Visual Studio unit testing framework has a steep learning curve that would cost precious time over the course of the project.  
 
 ### **Potential Improvements**
-
-There are a number of aspects of the code in its current state that are not optimal. The most inefficient part of the code at this point is the section that calculates the best current node at the beginning of the algorithm. This makes INSERT NOTATION HERE. With a heap, the code now INSERT which is X more efficient. The heap works via INSERT. Another major overhaul that I would implement if I continued on this project would be using the Visual Studio framework. I would implement full unit testing for the member functions of the class in terms of graceful fails and successful runs. A final improvement would be to uncouple the grid generation from the algorithm class. This would involve using the namespace set up in a separate class for the functions using the grid and removing the functions to generate the grid and start and end co-ordinates.
+There are a number of aspects of the code in its current state that are not optimal. The most inefficient part of the code at this point is the section that calculates the best current node at the beginning of the algorithm. This makes INSERT NOTATION HERE. With a heap, the code now INSERT which is X more efficient. The heap works via INSERT. Another major overhaul that I would implement if I continued on this project would be using the Visual Studio framework. I would implement full unit testing for the member functions of the class in terms of graceful fails and successful runs. A final improvement would be to uncouple the grid generation from the algorithm class. This would involve using the namespace set up in a separate class for the functions using the grid and removing the functions to generate the grid and start and end co-ordinates. What to went well
 
 ## **Project planning**
 I used OneNote for project planning throughout the development of this project. Each day I worked on this project, I noted tasks that were completed. I made certain all sources (including the date they were accessed) were transcibed in a section as well as the relevant section of code they pertained to, or knowledge I gained from them. This was a useful means of lightening the workload for this report, since it allowed me to check what information I gained from where, as well as how the code was developed over time. This made citations a quick and easy task for this report thanks to my ealier forethought. Within the log I kept screenshots of my algorithm's evolution over time enabling the history of the project to be shown in the core content section. The log made it simpler to track the tasks yet to complete, with a subsection dedicated to features I wanted to add. The section meant that jotting down ideas was simple as well as easy to locate once the current feature in development was completed. Within programming labs, I kept my lecturer up to date on the current status on the project and voiced new ideas and optimisations in the log and backlog of tasks. I would ask questions pertaining to next steps if all my features were complete and my code was reviewed several times, leading to a polished final product with renewed guidence each week and goals to work towards by the next session. 
 
 ## **Reflective element**
-Biggest problems would be the linking of the structs to trace the path
-Of course, it goes without saying that I would focus on the number of improvements if given the chance such as unit testing, adding a heap and decoupling the algorithim class from the grid functions to make two classes. 
+The project has taught me best practices and style for C++. I reformatted code to incrementally optimise the code while making it much more readable. One such example of improving readability would be including the namespace. Of course, it goes without saying that I would focus on the number of improvements if given the chance such as unit testing, adding a heap and decoupling the algorithim class from the grid functions to make two classes. 
 
 ### **References**
 [1] Tarodev, “Pathfinding - Understanding A* (A star),” YouTube. Nov. 16, 2021. [Online]. Available: https://www.youtube.com/watch?v=i0x5fj4PqP4  (accessed Feb. 10, 2026).
-[2] GeeksforGeeks, “A* Search Algorithm,” GeeksforGeeks, Jun. 16, 2016. https://www.geeksforgeeks.org/dsa/a-search-algorithm/  (accessed Feb. 07, 2026).  
+[2] GeeksforGeeks, “A* Search Algorithm,” GeeksforGeeks, Jun. 16, 2016. https://www.geeksforgeeks.org/dsa/a-search-algorithm/  (accessed Feb. 07, 2026). 
 
+### ***Sources of information for code*
+F. Deak, “Initializing a two-dimensional std::vector,” Stack Overflow, Jul. 15, 2013. https://stackoverflow.com/questions/17663186/initializing-a-two-dimensional-stdvector (accessed Feb. 05, 2026). 
 
+user3413646, “Storing (x, y) Coordinates with set,” Stack Overflow, Feb. 02, 2019. https://stackoverflow.com/questions/54494503/storing-x-y-coordinates-with-set  (accessed Feb. 05, 2026). 
+
+GeeksforGeeks, “2D Vector in C++,” GeeksforGeeks, Oct. 09, 2017. https://www.geeksforgeeks.org/cpp/2d-vector-in-cpp-with-user-defined-size/ (accessed Feb. 05, 2026). 
+
+“std::sqrt, std::sqrtf, std::sqrtl - cppreference.com,” Cppreference.com, 2023. https://en.cppreference.com/w/cpp/numeric/math/sqrt.html (accessed Feb. 07, 2026). 
+
+“std::pow, std::powf, std::powl - cppreference.com,” Cppreference.com, 2024. https://en.cppreference.com/w/cpp/numeric/math/pow.html (accessed Feb. 07, 2026). 
+
+“std::abs(float), std::fabs, std::fabsf, std::fabsl - cppreference.com,” Cppreference.com, 2025. https://en.cppreference.com/w/cpp/numeric/math/fabs.html (accessed Feb. 07, 2026). 
+
+“Struct declaration - cppreference.com,” Cppreference.com, 2024. https://en.cppreference.com/w/c/language/struct.html  (accessed Feb. 10, 2026). 
+
+Shine (accessed Feb. 10, 2026). 
+
+Cplusplus.com, 2025. https://cplusplus.com/reference/algorithm/count/ ‌(accessed Feb. 10, 2026). 
+
+“C++ Break and Continue,” www.w3schools.com https://www.w3schools.com/cpp/cpp_break.asp  (accessed Feb. 10, 2026). 
+
+Faken, “how do I initialize a float to its max/min value?,” Stack Overflow, Apr. 21, 2010. https://stackoverflow.com/questions/2684603/how-do-i-initialize-a-float-to-its-max-min-value  (accessed Feb. 10, 2026). 
+
+“How to compare Class struct - C++ Forum,” Cplusplus.com, 2026. https://cplusplus.com/forum/beginner/130111/ (accessed Feb. 17, 2026). 
+
+“W3Schools.com,” W3schools.com, 2026. https://www.w3schools.com/cpp/ref_vector_empty.asp (accessed Feb. 25, 2026). 
+
+“The entire table of ANSI color codes.,” Gist. https://gist.github.com/JBlond/2fea43a3049b38287e5e9cefc87b2124  (accessed Feb. 25, 2026). 
+
+“std::map - cppreference.com,” Cppreference.com, 2025. https://en.cppreference.com/w/cpp/container/map.html  (accessed Mar 11, 2026). 
