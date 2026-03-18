@@ -90,7 +90,7 @@ The tracePath function passed the path found (or empty vector if no path was fou
 
 <sub> Fig 16 An example output of a solved grid </sub>
 
-### ** Finding the Final Product**
+### **Finding the Final Product**
 From this point on, testing the algorithm & adhering to best practices was of the utmost importance. Minute edits to clean the code were made such as using "_" at the end of variables, making them easily identifiable. I received notes during a code review during the development and had a few tweaks to make. Most importantly, I needed to split the tracePath function due to its bloated nature (see Fig 17). At this point, the focus had been to try and get a working algorithm but I was reminded that a method should focus on one task alone. This lead to the evolution in creating a modular series of functions that are called within the shortened tracePath algorithm. 
 
 <img width="393" height="598" alt="image" src="https://github.com/user-attachments/assets/a98f891a-a766-4be2-b732-3f1e4f38a410" />
@@ -126,6 +126,18 @@ Another note that required rectifying was the header file for the code. The head
 <sub> Fig 23 Cleaner header with namespace implementation </sub>
 
 ### **Testing the Algorithm**
+
+To close out the project, testing was added in the form of a new .h and .cpp file (see Fig 24 & 25 respectfully). Generally, common or best practice would be to implement unit testing to confirm the logic of each function and their response to invalid arguments or data. In essence you want to check that two things are happening. 1) The function works as intended and 2) The function fails gracefully as intended. Due to the nature of the time allocated for this project, the scope was not to implement full unit testing, but rather a system test where the overall algorithm is tested in place of individual functions. This was done due to the fact that the Visual Studio unit testing framework has a steep learning curve that would cost precious time over the course of the project. 
+
+IMG!!!
+
+<sub> Fig 24 The header file for testing the system </sub>
+
+IMG!!!
+
+<sub> Fig 25 The source file for testing the system</sub>
+
+
 
 ### **Design Decisions**
 Why a namespace
