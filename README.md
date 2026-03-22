@@ -175,11 +175,17 @@ The project has taught me best practices and style for C++. It also taught me th
 
 ### **References**
 [1] Tarodev, “Pathfinding - Understanding A* (A star),” YouTube. Nov. 16, 2021. [Online]. Available: https://www.youtube.com/watch?v=i0x5fj4PqP4  (accessed Feb. 10, 2026).
+
 [2]“Writing mathematical expressions,” GitHub Docs. https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions (accessed Mar. 20, 2026).‌
+
 [3] GeeksforGeeks, “A* Search Algorithm,” GeeksforGeeks, Jun. 16, 2016. https://www.geeksforgeeks.org/dsa/a-search-algorithm/  (accessed Feb. 07, 2026). 
+
 [4] Shine Sujith, spoken conversation. (accessed Feb. 10, 2026). 
+
 [5] Matthew-J-Spencer, “GitHub - Matthew-J-Spencer/Pathfinding: Related to this video: https://www.youtube.com/watch?v=i0x5fj4PqP4,” GitHub, 2025. https://github.com/Matthew-J-Spencer/Pathfinding (accessed Mar. 2, 2026).
+
 [6] Anthropic, “Claude,” claude.ai, 2025. https://claude.ai/new (accessed Feb. 27,2026).
+
 [7] GeeksforGeeks, “Heap in C++ STL,” GeeksforGeeks, Jul. 21, 2016. https://www.geeksforgeeks.org/cpp/cpp-stl-heap/ (accessed Mar. 21, 2026).
 ‌
 ‌
